@@ -22,7 +22,7 @@ export const getMentions = (text): string[] => {
 export const getInvites = (text): string[] => {
   return [
     ...text.matchAll(
-      /(https:\/\/)?(www\.)?(((discord(app)?)?\.com\/invite)|((discord(app)?)?\.gg))\/(?<invite>.+)/gm,
+      /(?:https:\/\/)?(?:www\.)?(?:(?:discord(?:app)?)?\.com\/invite|(?:discord(?:app)?)?\.gg)\/[^ ]+/gm,
     ),
   ].map((m) => m[0]);
 };

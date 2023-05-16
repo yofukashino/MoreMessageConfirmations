@@ -20,7 +20,7 @@ const newPromise = (caseValue, args, res): Promise<Types.openWarningPopout> => {
           onCancel: () => {
             resolve({
               valid: false,
-              failureReason: "dont_mention_now",
+              failureReason: "do_not_send_invite",
             });
           },
           onConfirm: () => {
@@ -41,7 +41,7 @@ const newPromise = (caseValue, args, res): Promise<Types.openWarningPopout> => {
           onCancel: () => {
             resolve({
               valid: false,
-              failureReason: "dont_slow_me",
+              failureReason: "do_not_slow_me",
             });
           },
           onConfirm: () => {
@@ -62,7 +62,7 @@ const newPromise = (caseValue, args, res): Promise<Types.openWarningPopout> => {
           onCancel: () => {
             resolve({
               valid: false,
-              failureReason: "dont_upload_now",
+              failureReason: "do_not_upload",
             });
           },
           onConfirm: () => {
@@ -83,7 +83,7 @@ const newPromise = (caseValue, args, res): Promise<Types.openWarningPopout> => {
           onCancel: () => {
             resolve({
               valid: false,
-              failureReason: "dont_mention_now",
+              failureReason: "do_not_mention",
             });
           },
           onConfirm: () => {
@@ -104,7 +104,7 @@ const newPromise = (caseValue, args, res): Promise<Types.openWarningPopout> => {
           onCancel: () => {
             resolve({
               valid: false,
-              failureReason: "dont_mention_now",
+              failureReason: "do_not_send_link",
             });
           },
           onConfirm: () => {
@@ -120,46 +120,53 @@ const newPromise = (caseValue, args, res): Promise<Types.openWarningPopout> => {
       return res(...args) as Promise<Types.openWarningPopout>;
   }
 };
-const checkConditions = (args, res, _instance): Promise<Types.openWarningPopout> => {
+const checkConditions = async (args, res, _instance): Promise<Types.openWarningPopout> => {
   const [{ channel, content, uploads }] = args;
   const invites = Utils.getInvites(content);
   const mentions = Utils.getMentions(content);
   const links = Utils.getLinks(content);
+  const popouts = new Set();
   if (
     SettingValues.get("inviteConfirmation", defaultSettings.inviteConfirmation) &&
     !channel.isDM() &&
     !channel.isGroupDM() &&
-    SettingValues.get("inviteTrigger", defaultSettings.inviteTrigger) <= invites?.length
+    Math.floor(SettingValues.get("inviteTrigger", defaultSettings.inviteTrigger)) <= invites?.length
   )
-    return newPromise("invite", args, res);
+    popouts.add(await newPromise("invite", args, res));
 
   if (
     SettingValues.get("slowmodeConfirmation", defaultSettings.slowmodeConfirmation) &&
     !Utils.canBypassSlowmode(channel) &&
-    SettingValues.get("slowmodeTrigger", defaultSettings.slowmodeTrigger) <=
+    Math.floor(SettingValues.get("slowmodeTrigger", defaultSettings.slowmodeTrigger)) <=
       channel?.rateLimitPerUser
   )
-    return newPromise("slowmode", args, res);
+    popouts.add(await newPromise("slowmode", args, res));
 
   if (
     SettingValues.get("uploadConfirmation", defaultSettings.uploadConfirmation) &&
-    SettingValues.get("uploadTrigger", defaultSettings.uploadTrigger) <= uploads?.length
+    Math.floor(SettingValues.get("uploadTrigger", defaultSettings.uploadTrigger)) <= uploads?.length
   )
-    return newPromise("upload", args, res);
+    popouts.add(await newPromise("upload", args, res));
 
   if (
     SettingValues.get("mentionConfirmation", defaultSettings.mentionConfirmation) &&
-    SettingValues.get("mentionTrigger", defaultSettings.mentionTrigger) <= mentions?.length
+    Math.floor(SettingValues.get("mentionTrigger", defaultSettings.mentionTrigger)) <=
+      mentions?.length
   )
-    return newPromise("mention", args, res);
+    popouts.add(await newPromise("mention", args, res));
 
   if (
     SettingValues.get("linkConfirmation", defaultSettings.linkConfirmation) &&
-    SettingValues.get("linkTrigger", defaultSettings.linkTrigger) <= links?.length
+    Math.floor(SettingValues.get("linkTrigger", defaultSettings.linkTrigger)) <= links?.length
   )
-    return newPromise("link", args, res);
+    popouts.add(await newPromise("link", args, res));
 
-  return newPromise("default", args, res);
+  const tokenConfirmation = await newPromise("default", args, res);
+  if (!tokenConfirmation?.valid) popouts.add(tokenConfirmation);
+
+  for (const valid of popouts) return valid as Types.openWarningPopout;
+
+  return { valid: true };
 };
 export const patchWarningPopout = (): void => {
   const open = webpack.getFunctionKeyBySource<string>(WarningPopout, ".openWarningPopout");
