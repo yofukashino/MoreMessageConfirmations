@@ -121,11 +121,12 @@ const newPromise = (caseValue, args, res): Promise<Types.openWarningPopout> => {
   }
 };
 const checkConditions = async (args, res, _instance): Promise<Types.openWarningPopout> => {
-  const [{ channel, content, uploads }] = args;
+  const [{ channel, content, uploads, openWarningPopout }] = args;
   const invites = Utils.getInvites(content);
   const mentions = Utils.getMentions(content);
   const links = Utils.getLinks(content);
   const popouts = new Set();
+  if (!openWarningPopout) return { valid: true };
   if (
     SettingValues.get("inviteConfirmation", defaultSettings.inviteConfirmation) &&
     !channel.isDM() &&
