@@ -1,6 +1,6 @@
 {
   "name": "more-message-confirmations",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Get a confirmation when your message meets certain conditions.",
   "engines": {
     "node": ">=14.0.0"

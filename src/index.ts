@@ -4,7 +4,10 @@ import { defaultSettings } from "./lib/consts";
 
 export const PluginLogger = Logger.plugin("MoreMessageConfirmations");
 
-export const SettingValues = await settings.init("dev.tharki.DiscordBypasses", defaultSettings);
+export const SettingValues = await settings.init(
+  "dev.tharki.MoreMessageConfirmations",
+  defaultSettings,
+);
 
 export const PluginInjector = new Injector();
 

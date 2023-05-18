@@ -9,7 +9,7 @@ const newPromise = (caseValue, args, res): Promise<Types.openWarningPopout> => {
   const invites = Utils.getInvites(content);
   const mentions = Utils.getMentions(content);
   const links = Utils.getLinks(content);
-  const customAnalyticsType = "dev.tharki.DiscordBypasses";
+  const customAnalyticsType = "dev.tharki.MoreMessageConfirmations";
   switch (caseValue) {
     case "invite":
       return new Promise((resolve) =>
