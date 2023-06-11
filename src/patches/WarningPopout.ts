@@ -170,6 +170,11 @@ const checkConditions = async (args, res, _instance): Promise<Types.openWarningP
   return { valid: true };
 };
 export const patchWarningPopout = (): void => {
-  const open = webpack.getFunctionKeyBySource<string>(WarningPopout, ".openWarningPopout");
-  PluginInjector.instead(WarningPopout, open, (...props) => checkConditions(...props));
+  const open = webpack.getFunctionKeyBySource<string>(
+    WarningPopout as string,
+    ".openWarningPopout",
+  );
+  PluginInjector.instead(WarningPopout as Types.GenericModule, open, (...props) =>
+    checkConditions(...props),
+  );
 };

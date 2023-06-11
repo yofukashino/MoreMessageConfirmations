@@ -2,15 +2,17 @@
   "id": "dev.tharki.MoreMessageConfirmations",
   "name": "MoreMessageConfirmations",
   "description": "Get a confirmation when your message meets certain conditions.",
+  "image": "https://tharki-god.github.io/files-random-host/bdpluginsassets/confirmation.png",
+  "source": "https://github.com/Tharki-God/MoreMessageConfirmations",
   "author": {
     "name": "Ahlawat",
     "discordID": "1025214794766221384",
     "github": "Tharki-God"
   },
-  "version": "1.0.3",
+  "version": "1.0.4",
   "updater": {
-    "type": "github",
-    "id": "Tharki-God/MoreMessageConfirmations"
+    "type": "store",
+    "id": "dev.tharki.MoreMessageConfirmations"
   },
   "license": "MIT",
   "type": "replugged-plugin",

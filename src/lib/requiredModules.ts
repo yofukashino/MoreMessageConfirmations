@@ -1,8 +1,6 @@
 import { webpack } from "replugged";
 import * as Types from "../types";
-export const WarningPopout = webpack.getBySource(
+export const WarningPopout = webpack.getBySource<Types.GenericModule | string>(
   ".openWarningPopout",
-) as unknown as Types.GenericModule;
-export const PermissionStore = webpack.getByProps(
-  "getChannelPermissions",
-) as unknown as Types.PermissionStore;
+);
+export const PermissionStore = webpack.getByProps<Types.PermissionStore>("getChannelPermissions");

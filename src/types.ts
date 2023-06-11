@@ -1,9 +1,7 @@
 export { types as DefaultTypes } from "replugged";
 import { types as DefaultTypes } from "replugged";
 
-export interface GenericModule {
-  [key: string]: DefaultTypes.AnyFunction;
-}
+export interface GenericModule extends Record<string, DefaultTypes.AnyFunction> {}
 export interface PermissionStore {
   can: DefaultTypes.AnyFunction;
   canAccessGuildSettings: DefaultTypes.AnyFunction;
