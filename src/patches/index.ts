@@ -1,4 +1,4 @@
-import { patchWarningPopout } from "./WarningPopout";
+import patchWarningPopout from "./WarningPopout";
 export const applyInjections = (): void => {
   patchWarningPopout();
 };

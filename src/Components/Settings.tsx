@@ -1,10 +1,9 @@
-import { components, util } from "replugged";
+import { util } from "replugged";
+import { Category, SliderItem, SwitchItem } from "replugged/components";
 import { PluginLogger, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
-import * as Utils from "../lib/utils";
-import * as Types from "../types";
-
-const { Category, SwitchItem, SliderItem } = components;
+import Utils from "../lib/utils";
+import Types from "../types";
 
 export const registerSettings = (): void => {
   for (const key in defaultSettings) {

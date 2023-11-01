@@ -1,8 +1,8 @@
 export { types as DefaultTypes } from "replugged";
 import { types as DefaultTypes } from "replugged";
-
+import { Store } from "replugged/dist/renderer/modules/common/flux";
 export interface GenericModule extends Record<string, DefaultTypes.AnyFunction> {}
-export interface PermissionStore {
+export interface PermissionStore extends Store {
   can: DefaultTypes.AnyFunction;
   canAccessGuildSettings: DefaultTypes.AnyFunction;
   canBasicChannel: DefaultTypes.AnyFunction;
@@ -36,3 +36,4 @@ export interface Settings {
   linkConfirmation: boolean;
   linkTrigger: number;
 }
+export * as default from "./types";

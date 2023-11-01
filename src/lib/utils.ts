@@ -1,6 +1,6 @@
-import { common } from "replugged";
+import { constants as DiscordConstants } from "replugged/common";
 import { PermissionStore } from "../lib/requiredModules";
-const { constants: DiscordConstants } = common;
+
 export const makeHumanReadable = (num: number, singular: string): string => {
   return num > 0 ? `${num} ${num === 1 ? singular : `${singular}s`}, ` : "";
 };
@@ -36,4 +36,13 @@ export const getLinks = (text): string[] => {
 export const canBypassSlowmode = (channel): boolean => {
   return (PermissionStore.can(DiscordConstants.Permissions.MANAGE_MESSAGES, channel) ||
     PermissionStore.can(DiscordConstants.Permissions.MANAGE_CHANNELS, channel)) as boolean;
+};
+
+export default {
+  makeHumanReadable,
+  toDaysMinutesSeconds,
+  getMentions,
+  getInvites,
+  getLinks,
+  canBypassSlowmode,
 };

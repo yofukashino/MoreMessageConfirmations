@@ -1,4 +1,3 @@
-import { webpack } from "replugged";
 import { PluginInjector, SettingValues } from "../index";
 import { defaultSettings } from "../lib/consts";
 import { WarningPopout } from "../lib/requiredModules";
@@ -169,12 +168,8 @@ const checkConditions = async (args, res, _instance): Promise<Types.openWarningP
 
   return { valid: true };
 };
-export const patchWarningPopout = (): void => {
-  const open = webpack.getFunctionKeyBySource<string>(
-    WarningPopout as string,
-    ".openWarningPopout",
-  );
-  PluginInjector.instead(WarningPopout as Types.GenericModule, open, (...props) =>
+export default (): void => {
+  PluginInjector.instead(WarningPopout, "applyChatRestrictions", (...props) =>
     checkConditions(...props),
   );
 };
