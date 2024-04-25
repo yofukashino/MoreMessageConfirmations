@@ -105,11 +105,7 @@ export const Settings = () => {
       <Category title="Links" open={false}>
         <SwitchItem
           note="Whether to show a confirmation dialog when sending any sort of link."
-          {...util.useSetting(
-            SettingValues,
-            "uploadConfirmation",
-            defaultSettings.uploadConfirmation,
-          )}>
+          {...util.useSetting(SettingValues, "linkConfirmation", defaultSettings.linkConfirmation)}>
           Show confirmation
         </SwitchItem>
         <SliderItem
