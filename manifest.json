@@ -3,11 +3,11 @@
   "name": "MoreMessageConfirmations",
   "description": "Get a confirmation when your message meets certain conditions.",
   "image": "https://i.imgur.com/oX3JkiY.png",
-  "source": "https://github.com/Tharki-God/MoreMessageConfirmations",
+  "source": "https://github.com/YofukashiNo/MoreMessageConfirmations",
   "author": {
-    "name": "Ahlawat",
-    "discordID": "1025214794766221384",
-    "github": "Tharki-God"
+    "name": "Nanakusa",
+    "discordID": "1121961711080050780",
+    "github": "YofukashiNo"
   },
   "version": "1.1.0",
   "updater": {

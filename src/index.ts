@@ -1,23 +1,17 @@
 import { Injector, Logger, settings } from "replugged";
-
 import { defaultSettings } from "./lib/consts";
-
 export const PluginLogger = Logger.plugin("MoreMessageConfirmations");
-
 export const SettingValues = await settings.init(
   "dev.tharki.MoreMessageConfirmations",
   defaultSettings,
 );
-
 export const PluginInjector = new Injector();
-
-import { registerSettings } from "./Components/Settings";
-
-import { applyInjections } from "./patches/index";
+import Settings from "./Components/Settings";
+import Injections from "./injections/index";
 
 export const start = (): void => {
-  registerSettings();
-  applyInjections();
+  Settings.registerSettings();
+  void Injections.applyInjections();
 };
 
 export const stop = (): void => {
