@@ -7,10 +7,7 @@ import Types from "../types";
 
 export default (): void => {
   const { WarningPopout } = Modules;
-  const applyChatRestrictions = webpack.getFunctionKeyBySource(
-    WarningPopout,
-    "openWarningPopout",
-  );
+  const applyChatRestrictions = webpack.getFunctionKeyBySource(WarningPopout, "openWarningPopout");
   PluginInjector.instead(WarningPopout, applyChatRestrictions, async (args, res, _instance) => {
     const [{ channel, content, uploads, openWarningPopout }] = args;
     const invites = Utils.getInvites(content);
